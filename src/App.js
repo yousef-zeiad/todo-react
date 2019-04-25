@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
+import Header from './components/layout/Header'
 import Todos from './components/Todos'
+import AddTodo from './components/AddTodo'
 
 class App extends Component {
   state = {
@@ -22,6 +24,8 @@ class App extends Component {
     }
   ]
 }
+
+// Make it Complete
 markComplete = (id) => {
   this.setState({ todos: this.state.todos.map(todo => {
     if(todo.id === id) {
@@ -30,12 +34,24 @@ markComplete = (id) => {
     return todo;
   }) })
 }
+
+// The Delete button function
+  delete = (id) => {
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
+  }
+
   render() {
     
     return (
     <div className="App">
-      <Todos todos={this.state.todos} 
-      markComplete = {this.markComplete}/>
+      <div className="container">
+        <Header/>
+        <AddTodo/>
+        <Todos todos={this.state.todos} 
+        markComplete = {this.markComplete}
+        delete = {this.delete}
+        />
+      </div>
     </div>
    );
   }
